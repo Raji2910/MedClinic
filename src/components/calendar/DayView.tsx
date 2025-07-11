@@ -2,8 +2,6 @@ import React from 'react';
 import { format, addDays, subDays } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 import { useAppointments } from '@/hooks/useAppointments';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChevronLeft, ChevronRight, Plus, Clock, User } from 'lucide-react';
 
 interface DayViewProps {
@@ -45,59 +43,65 @@ export const DayView = ({ currentDate, onDateChange, selectedDoctor }: DayViewPr
   return (
     <div className="w-full space-y-4">
       {/* Day Navigation */}
-      <Card>
-        <CardHeader className="pb-3">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700">
+        <div className="p-4">
           <div className="flex items-center justify-between">
-            <Button variant="ghost" size="icon" onClick={handlePrevDay}>
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
+            <button 
+              onClick={handlePrevDay}
+              className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            >
+              <ChevronLeft className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+            </button>
             
             <div className="text-center">
-              <CardTitle className="text-lg">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
                 {format(currentDate, 'EEEE, MMMM d, yyyy')}
-              </CardTitle>
+              </h2>
             </div>
             
-            <Button variant="ghost" size="icon" onClick={handleNextDay}>
-              <ChevronRight className="h-4 w-4" />
-            </Button>
+            <button 
+              onClick={handleNextDay}
+              className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            >
+              <ChevronRight className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+            </button>
           </div>
-        </CardHeader>
-      </Card>
+        </div>
+      </div>
 
       {/* Add Appointment Button */}
-      <Button 
+      <button 
         onClick={handleAddAppointment}
-        className="w-full flex items-center space-x-2"
+        className="w-full flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-md transition-colors"
       >
         <Plus className="h-4 w-4" />
         <span>Add Appointment</span>
-      </Button>
+      </button>
 
       {/* Appointments List */}
       <div className="space-y-3">
         {appointments.length === 0 ? (
-          <Card>
-            <CardContent className="p-6 text-center">
-              <div className="text-muted-foreground">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700">
+            <div className="p-6 text-center">
+              <div className="text-gray-500 dark:text-gray-400">
                 <Clock className="h-12 w-12 mx-auto mb-4 opacity-50" />
                 <p className="text-lg font-medium mb-2">No appointments today</p>
                 <p className="text-sm">Click "Add Appointment" to schedule one.</p>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         ) : (
           appointments.map((appointment) => (
-            <Card 
+            <div 
               key={appointment.id}
-              className="cursor-pointer hover:shadow-md transition-shadow"
+              className="bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-md transition-shadow"
               onClick={() => handleEditAppointment(appointment.id)}
             >
-              <CardContent className="p-4">
+              <div className="p-4">
                 <div className="flex items-start space-x-4">
                   {/* Time */}
                   <div className="flex-shrink-0">
-                    <div className="text-lg font-bold text-primary">
+                    <div className="text-lg font-bold text-blue-600 dark:text-blue-400">
                       {format(new Date(`2000-01-01T${appointment.time}`), 'h:mm a')}
                     </div>
                   </div>
@@ -111,29 +115,29 @@ export const DayView = ({ currentDate, onDateChange, selectedDoctor }: DayViewPr
                   {/* Appointment Details */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center space-x-2 mb-2">
-                      <User className="h-4 w-4 text-muted-foreground" />
-                      <h3 className="font-semibold text-foreground truncate">
+                      <User className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                      <h3 className="font-semibold text-gray-900 dark:text-white truncate">
                         {appointment.patient.name}
                       </h3>
                     </div>
                     
-                    <p className="text-sm text-muted-foreground mb-1">
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
                       with {appointment.doctor.name}
                     </p>
                     
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
                       {appointment.doctor.specialty}
                     </p>
                     
                     {appointment.notes && (
-                      <p className="text-sm text-muted-foreground mt-2 italic">
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 italic">
                         "{appointment.notes}"
                       </p>
                     )}
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))
         )}
       </div>

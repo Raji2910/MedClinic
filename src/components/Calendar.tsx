@@ -4,9 +4,6 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { MonthView } from './calendar/MonthView';
 import { DayView } from './calendar/DayView';
 import { Filter } from './Filter';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -39,52 +36,61 @@ export const Calendar = () => {
   return (
     <div className="container mx-auto p-4 space-y-6">
       {/* Header */}
-      <Card>
-        <CardHeader>
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+        <div className="p-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0">
-            <CardTitle className="flex items-center space-x-2">
+            <h1 className="flex items-center space-x-2 text-xl font-semibold text-gray-900 dark:text-white">
               <CalendarIcon className="h-5 w-5" />
               <span>Medical Calendar</span>
-            </CardTitle>
+            </h1>
             
-            <Button onClick={handleAddAppointment} className="flex items-center space-x-2">
+            <button 
+              onClick={handleAddAppointment} 
+              className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors"
+            >
               <Plus className="h-4 w-4" />
               <span>New Appointment</span>
-            </Button>
+            </button>
           </div>
-        </CardHeader>
-      </Card>
+        </div>
+      </div>
 
       {/* Controls */}
       <div className="flex flex-col lg:flex-row gap-4">
         {/* Date Navigation */}
-        <Card className="flex-1">
-          <CardContent className="p-4">
+        <div className="flex-1 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+          <div className="p-4">
             <div className="flex items-center justify-between">
-              <Button variant="ghost" size="icon" onClick={handlePrevMonth}>
-                <ChevronLeft className="h-4 w-4" />
-              </Button>
+              <button 
+                onClick={handlePrevMonth}
+                className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              >
+                <ChevronLeft className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+              </button>
               
               <div className="flex items-center space-x-4">
-                <h2 className="text-xl font-semibold">
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
                   {format(currentDate, 'MMMM yyyy')}
                 </h2>
                 
                 {/* Date Jump Input */}
-                <Input
+                <input
                   type="date"
                   value={format(currentDate, 'yyyy-MM-dd')}
                   onChange={handleDateJump}
-                  className="w-auto"
+                  className="px-3 py-1 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
                 />
               </div>
               
-              <Button variant="ghost" size="icon" onClick={handleNextMonth}>
-                <ChevronRight className="h-4 w-4" />
-              </Button>
+              <button 
+                onClick={handleNextMonth}
+                className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              >
+                <ChevronRight className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+              </button>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
         {/* Filter */}
         <Filter 
@@ -94,8 +100,8 @@ export const Calendar = () => {
       </div>
 
       {/* Calendar Views */}
-      <Card>
-        <CardContent className="p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+        <div className="p-6">
           {isMobile ? (
             <DayView 
               currentDate={currentDate}
@@ -108,8 +114,8 @@ export const Calendar = () => {
               selectedDoctor={selectedDoctor}
             />
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 };

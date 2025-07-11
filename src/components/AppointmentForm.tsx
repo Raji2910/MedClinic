@@ -2,19 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAppointments } from '@/hooks/useAppointments';
 import { patients, doctors } from '@/data/mockData';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, Save, Trash2 } from 'lucide-react';
-import { toast } from '@/hooks/use-toast';
+import { ArrowLeft, Save, Trash2, ChevronDown } from 'lucide-react';
+import { useToast } from '@/hooks/useToast';
 
 export const AppointmentForm = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { appointments, addAppointment, updateAppointment, deleteAppointment } = useAppointments();
+  const { toast } = useToast();
   
   const appointmentId = searchParams.get('id');
   const selectedDate = searchParams.get('date');
@@ -90,102 +85,107 @@ export const AppointmentForm = () => {
   return (
     <div className="container mx-auto p-4 max-w-2xl">
       <div className="mb-6 flex items-center space-x-4">
-        <Button
-          variant="ghost"
+        <button
           onClick={() => navigate('/calendar')}
-          className="flex items-center space-x-2"
+          className="flex items-center space-x-2 px-3 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
           <span>Back to Calendar</span>
-        </Button>
+        </button>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center justify-between">
-            {isEditing ? 'Edit Appointment' : 'New Appointment'}
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+              {isEditing ? 'Edit Appointment' : 'New Appointment'}
+            </h2>
             {isEditing && (
-              <Button
-                variant="destructive"
-                size="sm"
+              <button
                 onClick={handleDelete}
-                className="flex items-center space-x-2"
+                className="flex items-center space-x-2 px-3 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors"
               >
                 <Trash2 className="h-4 w-4" />
                 <span>Delete</span>
-              </Button>
+              </button>
             )}
-          </CardTitle>
-        </CardHeader>
+          </div>
+        </div>
         
-        <CardContent>
+        <div className="p-6">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Patient Selection */}
             <div className="space-y-2">
-              <Label htmlFor="patient">Patient *</Label>
-              <Select value={formData.patientId} onValueChange={(value) => handleChange('patientId', value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a patient" />
-                </SelectTrigger>
-                <SelectContent>
+              <label htmlFor="patient" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Patient *
+              </label>
+              <div className="relative">
+                <select
+                  value={formData.patientId}
+                  onChange={(e) => handleChange('patientId', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white appearance-none"
+                  required
+                >
+                  <option value="">Select a patient</option>
                   {patients.map((patient) => (
-                    <SelectItem key={patient.id} value={patient.id}>
-                      <div>
-                        <div className="font-medium">{patient.name}</div>
-                        <div className="text-sm text-muted-foreground">{patient.email}</div>
-                      </div>
-                    </SelectItem>
+                    <option key={patient.id} value={patient.id}>
+                      {patient.name} - {patient.email}
+                    </option>
                   ))}
-                </SelectContent>
-              </Select>
+                </select>
+                <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+              </div>
             </div>
 
             {/* Doctor Selection */}
             <div className="space-y-2">
-              <Label htmlFor="doctor">Doctor *</Label>
-              <Select value={formData.doctorId} onValueChange={(value) => handleChange('doctorId', value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a doctor" />
-                </SelectTrigger>
-                <SelectContent>
+              <label htmlFor="doctor" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Doctor *
+              </label>
+              <div className="relative">
+                <select
+                  value={formData.doctorId}
+                  onChange={(e) => handleChange('doctorId', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white appearance-none"
+                  required
+                >
+                  <option value="">Select a doctor</option>
                   {doctors.map((doctor) => (
-                    <SelectItem key={doctor.id} value={doctor.id}>
-                      <div className="flex items-center space-x-2">
-                        <div
-                          className="w-3 h-3 rounded-full"
-                          style={{ backgroundColor: doctor.color }}
-                        />
-                        <div>
-                          <div className="font-medium">{doctor.name}</div>
-                          <div className="text-sm text-muted-foreground">{doctor.specialty}</div>
-                        </div>
-                      </div>
-                    </SelectItem>
+                    <option key={doctor.id} value={doctor.id}>
+                      {doctor.name} - {doctor.specialty}
+                    </option>
                   ))}
-                </SelectContent>
-              </Select>
+                </select>
+                <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+              </div>
             </div>
 
             {/* Date and Time */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="date">Date *</Label>
-                <Input
+                <label htmlFor="date" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Date *
+                </label>
+                <input
                   id="date"
                   type="date"
                   value={formData.date}
                   onChange={(e) => handleChange('date', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                   required
                 />
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="time">Time *</Label>
-                <Input
+                <label htmlFor="time" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Time *
+                </label>
+                <input
                   id="time"
                   type="time"
                   value={formData.time}
                   onChange={(e) => handleChange('time', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                   required
                 />
               </div>
@@ -193,24 +193,30 @@ export const AppointmentForm = () => {
 
             {/* Notes */}
             <div className="space-y-2">
-              <Label htmlFor="notes">Notes</Label>
-              <Textarea
+              <label htmlFor="notes" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Notes
+              </label>
+              <textarea
                 id="notes"
                 placeholder="Additional notes about the appointment..."
                 value={formData.notes}
                 onChange={(e) => handleChange('notes', e.target.value)}
                 rows={3}
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white resize-y"
               />
             </div>
 
             {/* Submit Button */}
-            <Button type="submit" className="w-full flex items-center space-x-2">
+            <button 
+              type="submit" 
+              className="w-full flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
               <Save className="h-4 w-4" />
               <span>{isEditing ? 'Update Appointment' : 'Create Appointment'}</span>
-            </Button>
+            </button>
           </form>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 };
