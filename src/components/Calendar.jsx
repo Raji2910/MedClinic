@@ -21,7 +21,7 @@ export const Calendar = () => {
     setCurrentDate(prev => addMonths(prev, 1));
   };
 
-  const handleDateJump = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDateJump = (e) => {
     const newDate = new Date(e.target.value);
     if (!isNaN(newDate.getTime())) {
       setCurrentDate(newDate);

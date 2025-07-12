@@ -4,13 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppointments } from '@/hooks/useAppointments';
 import { ChevronLeft, ChevronRight, Plus, Clock, User } from 'lucide-react';
 
-interface DayViewProps {
-  currentDate: Date;
-  onDateChange: (date: Date) => void;
-  selectedDoctor: string;
-}
-
-export const DayView = ({ currentDate, onDateChange, selectedDoctor }: DayViewProps) => {
+export const DayView = ({ currentDate, onDateChange, selectedDoctor }) => {
   const navigate = useNavigate();
   const { getAppointmentsByDate } = useAppointments();
 
@@ -36,7 +30,7 @@ export const DayView = ({ currentDate, onDateChange, selectedDoctor }: DayViewPr
     navigate(`/appointment/new?date=${dateStr}`);
   };
 
-  const handleEditAppointment = (appointmentId: string) => {
+  const handleEditAppointment = (appointmentId) => {
     navigate(`/appointment/edit?id=${appointmentId}`);
   };
 

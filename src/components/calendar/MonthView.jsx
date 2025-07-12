@@ -4,12 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppointments } from '@/hooks/useAppointments';
 import { Plus } from 'lucide-react';
 
-interface MonthViewProps {
-  currentDate: Date;
-  selectedDoctor: string;
-}
-
-export const MonthView = ({ currentDate, selectedDoctor }: MonthViewProps) => {
+export const MonthView = ({ currentDate, selectedDoctor }) => {
   const navigate = useNavigate();
   const { getAppointmentsByDate, getAppointmentsByDoctor } = useAppointments();
 
@@ -23,7 +18,7 @@ export const MonthView = ({ currentDate, selectedDoctor }: MonthViewProps) => {
   // Create empty cells for days before the month starts
   const leadingEmptyDays = Array.from({ length: firstDayOfWeek }, (_, i) => i);
 
-  const getDayAppointments = (date: Date) => {
+  const getDayAppointments = (date) => {
     const dateStr = format(date, 'yyyy-MM-dd');
     let appointments = getAppointmentsByDate(dateStr);
     
@@ -34,12 +29,12 @@ export const MonthView = ({ currentDate, selectedDoctor }: MonthViewProps) => {
     return appointments;
   };
 
-  const handleDayClick = (date: Date) => {
+  const handleDayClick = (date) => {
     const dateStr = format(date, 'yyyy-MM-dd');
     navigate(`/appointment/new?date=${dateStr}`);
   };
 
-  const handleAppointmentClick = (e: React.MouseEvent, appointmentId: string) => {
+  const handleAppointmentClick = (e, appointmentId) => {
     e.stopPropagation();
     navigate(`/appointment/edit?id=${appointmentId}`);
   };

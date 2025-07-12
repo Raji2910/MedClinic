@@ -1,12 +1,7 @@
 import { doctors } from '@/data/mockData';
 import { Filter as FilterIcon, ChevronDown } from 'lucide-react';
 
-interface FilterProps {
-  selectedDoctor: string;
-  onDoctorChange: (doctorId: string) => void;
-}
-
-export const Filter = ({ selectedDoctor, onDoctorChange }: FilterProps) => {
+export const Filter = ({ selectedDoctor, onDoctorChange }) => {
   return (
     <div className="flex items-center space-x-2 bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
       <FilterIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />

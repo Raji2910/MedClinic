@@ -1,13 +1,7 @@
 import React from 'react';
 import { X, AlertCircle, CheckCircle } from 'lucide-react';
-import { Toast as ToastType } from '@/hooks/useToast';
 
-interface ToastProps {
-  toast: ToastType;
-  onRemove: (id: string) => void;
-}
-
-export const Toast: React.FC<ToastProps> = ({ toast, onRemove }) => {
+export const Toast = ({ toast, onRemove }) => {
   const isDestructive = toast.variant === 'destructive';
 
   return (
@@ -44,7 +38,7 @@ export const Toast: React.FC<ToastProps> = ({ toast, onRemove }) => {
   );
 };
 
-export const ToastContainer: React.FC<{ toasts: ToastType[], onRemove: (id: string) => void }> = ({ toasts, onRemove }) => {
+export const ToastContainer = ({ toasts, onRemove }) => {
   return (
     <div className="fixed top-0 right-0 z-50 space-y-2 p-4">
       {toasts.map((toast, index) => (

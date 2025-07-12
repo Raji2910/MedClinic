@@ -38,7 +38,7 @@ export const AppointmentForm = () => {
     }
   }, [isEditing, appointmentId, appointments]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     
     if (!formData.patientId || !formData.doctorId || !formData.date || !formData.time) {
@@ -78,7 +78,7 @@ export const AppointmentForm = () => {
     }
   };
 
-  const handleChange = (field: string, value: string) => {
+  const handleChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
