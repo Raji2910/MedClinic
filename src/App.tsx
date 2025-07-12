@@ -5,7 +5,7 @@ import { Login } from "@/components/Login";
 import { Calendar } from "@/components/Calendar";
 import { AppointmentForm } from "@/components/AppointmentForm";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
-import { NotFound } from "./pages/NotFound";
+import NotFound from "./pages/NotFound";
 import { ToastContainer } from '@/components/Toast';
 import { useToast } from '@/hooks/useToast';
 
