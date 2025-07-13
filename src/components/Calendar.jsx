@@ -41,7 +41,7 @@ export const Calendar = () => {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0">
             <h1 className="flex items-center space-x-2 text-xl font-semibold text-gray-900 dark:text-white">
               <CalendarIcon className="h-5 w-5" />
-              <span>Medical Calendar</span>
+              <span>MedClinic Calendar</span>
             </h1>
             
             <button 
