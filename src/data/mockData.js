@@ -1,6 +1,4 @@
-import { Patient, Doctor } from '../types/appointment';
-
-export const patients: Patient[] = [
+export const patients = [
   { id: '1', name: 'John Smith', email: 'john.smith@email.com', phone: '555-0101' },
   { id: '2', name: 'Emily Johnson', email: 'emily.johnson@email.com', phone: '555-0102' },
   { id: '3', name: 'Michael Brown', email: 'michael.brown@email.com', phone: '555-0103' },
@@ -13,7 +11,7 @@ export const patients: Patient[] = [
   { id: '10', name: 'Amanda Clark', email: 'amanda.clark@email.com', phone: '555-0110' },
 ];
 
-export const doctors: Doctor[] = [
+export const doctors = [
   { id: '1', name: 'Dr. Thompson', specialty: 'General Practice', color: '#4F46E5' },
   { id: '2', name: 'Dr. Rodriguez', specialty: 'Cardiology', color: '#059669' },
   { id: '3', name: 'Dr. Chen', specialty: 'Dermatology', color: '#DC2626' },

@@ -1,17 +1,11 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-interface AuthState {
-  isAuthenticated: boolean;
-  login: (email: string, password: string) => boolean;
-  logout: () => void;
-}
-
-export const useAuth = create<AuthState>()(
+export const useAuth = create()(
   persist(
     (set) => ({
       isAuthenticated: false,
-      login: (email: string, password: string) => {
+      login: (email, password) => {
         // Hardcoded credentials
         if (email === 'admin@example.com' && password === '123456') {
           set({ isAuthenticated: true });

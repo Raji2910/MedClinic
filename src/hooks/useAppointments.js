@@ -1,19 +1,8 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { Appointment, AppointmentWithDetails } from '../types/appointment';
 import { patients, doctors } from '../data/mockData';
 
-interface AppointmentsState {
-  appointments: Appointment[];
-  addAppointment: (appointment: Omit<Appointment, 'id'>) => void;
-  updateAppointment: (id: string, appointment: Partial<Appointment>) => void;
-  deleteAppointment: (id: string) => void;
-  getAppointmentsWithDetails: () => AppointmentWithDetails[];
-  getAppointmentsByDate: (date: string) => AppointmentWithDetails[];
-  getAppointmentsByDoctor: (doctorId: string) => AppointmentWithDetails[];
-}
-
-export const useAppointments = create<AppointmentsState>()(
+export const useAppointments = create()(
   persist(
     (set, get) => ({
       appointments: [
@@ -45,7 +34,7 @@ export const useAppointments = create<AppointmentsState>()(
       ],
       
       addAppointment: (appointment) => {
-        const newAppointment: Appointment = {
+        const newAppointment = {
           ...appointment,
           id: Date.now().toString(),
         };
@@ -71,8 +60,8 @@ export const useAppointments = create<AppointmentsState>()(
       getAppointmentsWithDetails: () => {
         const { appointments } = get();
         return appointments.map((appointment) => {
-          const patient = patients.find((p) => p.id === appointment.patientId)!;
-          const doctor = doctors.find((d) => d.id === appointment.doctorId)!;
+          const patient = patients.find((p) => p.id === appointment.patientId);
+          const doctor = doctors.find((d) => d.id === appointment.doctorId);
           return { ...appointment, patient, doctor };
         });
       },
