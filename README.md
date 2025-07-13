@@ -44,4 +44,4 @@ Password :- 123456
 
 ## The app will be available at:
 
-http://localhost:8080
+http://localhost:5173/
