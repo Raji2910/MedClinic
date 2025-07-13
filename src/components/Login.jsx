@@ -26,7 +26,7 @@ export const Login = () => {
     if (login(email, password)) {
       toast({
         title: "Login successful!",
-        description: "Welcome to MediCal",
+        description: "Welcome to MedClinic",
       });
       navigate('/calendar');
     } else {
@@ -48,25 +48,14 @@ export const Login = () => {
           <div className="flex justify-center mb-4">
             <img src={logo} alt="MediCal Logo" className="h-16 w-16" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Welcome to MediCal</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Welcome to MedClinic</h1>
           <p className="text-gray-600 dark:text-gray-400 mt-2">
-            Sign in to manage your medical appointments
+            Sign in to manage your medClinic appointments
           </p>
         </div>
         
         <div className="p-6 pt-0">
-          {/* Demo Credentials */}
-          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
-            <div className="flex items-start space-x-2">
-              <AlertCircle className="h-4 w-4 text-blue-600 dark:text-blue-400 mt-0.5" />
-              <div className="text-sm text-blue-800 dark:text-blue-200">
-                <strong>Demo credentials:</strong><br />
-                Email: admin@example.com<br />
-                Password: 123456
-              </div>
-            </div>
-          </div>
-
+        
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
