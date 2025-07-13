@@ -7,7 +7,7 @@ export const useAuth = create()(
       isAuthenticated: false,
       login: (email, password) => {
         // Hardcoded credentials
-        if (email === 'adminstaff@clinic.com' && password === '123456') {
+        if (email === 'staff@clinic.com' && password === '123456') {
           set({ isAuthenticated: true });
           return true;
         }
